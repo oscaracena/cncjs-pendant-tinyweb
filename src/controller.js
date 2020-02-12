@@ -45,6 +45,34 @@ jQuery.get("../api/commands", {token: token, paging: false}, function(data) {
     });
 });
 
+// Generate buttons for custom MDI
+jQuery.get("../api/mdi", {token: token, paging: false}, function(data) {
+    var c = 0;
+    var holder = null;
+
+    data.records.forEach(function(record) {
+        var mdi = $(".mdi");
+        if (c % 2 == 0) {
+            holder = $('<div class="row no-gutter"></div>');
+            mdi.append(holder);
+        }
+
+        var col = $('<div class="col-xs-6"></div>');
+        col.append( function(){
+            return $('<button type="button" class="btn btn-default" data-name="' + record.id + '">' + record.name + '</button>').on('click', function() {
+                root.cnc.controller.command("gcode", record.command);
+            });
+        })
+        holder.append(col);
+        c++;
+    });
+
+    if (c % 2 == 1) {
+        var col = $('<div class="col-xs-6"></div>');
+        holder.append(col);
+    }
+});
+
 socket.on('connect', function() {
     $('#loading').remove(); // Remove loading message
     root.cnc.router.init();

@@ -91,9 +91,13 @@ cnc.sendMove = function(cmd) {
         var s = _.map(params, function(value, letter) {
             return '' + letter + value;
         }).join(' ');
-        controller.command('gcode', 'G91'); // relative distance
-        controller.command('gcode', 'G0 ' + s);
-        controller.command('gcode', 'G90'); // absolute distance
+
+        // This will power off the laser!!
+        // controller.command('gcode', 'G91'); // relative distance
+        // controller.command('gcode', 'G0 ' + s);
+        // controller.command('gcode', 'G90'); // absolute distance
+
+        controller.command('gcode', '$J=G21G91' + s + 'F5000')
     };
     var move = function(params) {
         params = params || {};
@@ -112,7 +116,9 @@ cnc.sendMove = function(cmd) {
             controller.command('gcode', 'G30');
         },
         'X0Y0Z0': function() {
-            move({ X: 0, Y: 0, Z: 0 })
+            // FIX: move first Z up to a secure distance
+            move({ X: 0, Y: 0})
+            move({ Z: 0})
         },
         'X0': function() {
             move({ X: 0 });
@@ -390,7 +396,7 @@ controller.on('Marlin:settings', function(data) {
 
 controller.listAllPorts();
 
-// Workspace 
+// Workspace
 $('[data-route="workspace"] [data-name="port"]').val('');
 $('[data-route="workspace"] [data-name="btn-close"]').on('click', function() {
     controller.closePort();

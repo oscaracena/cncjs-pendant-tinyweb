@@ -210,7 +210,7 @@
                     <button
                         type="button"
                         class="btn btn-default g28"
-                        title="G28"
+                        title="Go to HOME position"
                         onclick="cnc.sendMove('G28')"
                     >
                         G28
@@ -356,7 +356,7 @@
                     </button>
                 </div>
             </div>
-            <div class="row no-gutter bottom-row">
+            <!-- <div class="row no-gutter bottom-row">
                 <div class="col-xs-4">
                     <button
                         type="button"
@@ -370,7 +370,7 @@
                     <button
                         type="button"
                         class="btn btn-default"
-                        title="G92 X0"
+                        title="Set current X as absolute X0"
                         onclick="cnc.controller.command('gcode', 'G92 X0')">
                         G92 X0
                     </button>
@@ -379,7 +379,7 @@
                     <button
                         type="button"
                         class="btn btn-default"
-                        title="G92 Y0"
+                        title="Set current Y as absolute Y0"
                         onclick="cnc.controller.command('gcode', 'G92 Y0')">
                         G92 Y0
                     </button>
@@ -388,7 +388,7 @@
                     <button
                         type="button"
                         class="btn btn-default"
-                        title="G92 Z0"
+                        title="Set current Z as absolute Z0"
                         onclick="cnc.controller.command('gcode', 'G92 Z0')">
                         G92 Z0
                     </button>
@@ -402,6 +402,30 @@
                         <i class="fa fa-refresh"></i> Refresh
                     </button>
                 </div>
+            </div> -->
+            <hr>
+            <div class="row no-gutter">
+                <div class="col-xs-6">
+                    <button
+                        type="button"
+                        class="btn btn-success"
+                        title="Start sending gcode"
+                        onclick="cnc.controller.command('gcode:start')">
+                        START
+                    </button>
+                </div>
+                <div class="col-xs-6">
+                    <button
+                        type="button"
+                        class="btn btn-danger"
+                        title="Stop sending gcode"
+                        onclick="cnc.controller.command('gcode:stop')">
+                        STOP
+                    </button>
+                </div>
+            </div>
+            <hr>
+            <div class="mdi">
             </div>
         </div>
     </div>
